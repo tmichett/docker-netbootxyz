@@ -206,3 +206,20 @@ The following bootfile names can be set as the boot file in the DHCP configurati
 | `netboot.xyz-arm64-snp.efi` | UEFI w/ Simple Network Protocol, attempts to boot all net devices |
 | `netboot.xyz-arm64-snponly.efi` | UEFI w/ Simple Network Protocol, only boots from device chained from |
 | `netboot.xyz-rpi4-snp.efi` | UEFI for Raspberry Pi 4, attempts to boot all net devices |
+
+
+```bash
+podman run -d \
+  --name=netbootxyz \
+  -e MENU_VERSION=2.0.84  \
+  -e NGINX_PORT=80  \
+  -e WEB_APP_PORT=3000  \
+  -p 3000:3000  \
+  -p 69:69/udp  \
+  -p 8080:80   \
+  -v /local/path/to/config:/config  \
+  -v /local/path/to/assets:/assets  \
+  --restart unless-stopped \
+  ghcr.io/netbootxyz/netbootxyz
+```
+
